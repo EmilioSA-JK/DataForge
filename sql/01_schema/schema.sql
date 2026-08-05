@@ -69,6 +69,20 @@ CREATE TABLE Avance(
     FOREIGN KEY (carnet) REFERENCES Personas(ced)
     );
     
+CREATE TABLE PIT_Logs(
+	cod_log INT AUTO_INCREMENT PRIMARY KEY,
+    tabla VARCHAR(50) NOT NULL,
+    tipo_operacion ENUM('INSERT','UPDATE','DELETE') NOT NULL,
+    fecha_hora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    detalle VARCHAR(255)
+    );
+    
+CREATE TABLE Oferta(
+	cod INT PRIMARY KEY,
+    cantidad INT NOT NULL DEFAULT 0,
+    ultima_fecha_compra DATE,
+    FOREIGN KEY (cod) REFERENCES Inventario(cod)
+    );
     
 
     
