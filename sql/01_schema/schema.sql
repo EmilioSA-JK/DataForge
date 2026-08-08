@@ -138,11 +138,9 @@ CREATE TABLE Detalle_ventas(
 CREATE TABLE Log_ventas_comisiones(
 		n_comisiones int PRIMARY KEY,
 		cod int,
-		cantidad int,
+		saldo int,
         
 		FOREIGN KEY (cod) REFERENCES Inventario(cod),
 		FOREIGN KEY (saldo) REFERENCES Inventario(saldo)
         
-		
-        );
-    
+    );
