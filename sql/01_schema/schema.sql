@@ -84,5 +84,65 @@ CREATE TABLE Oferta(
     FOREIGN KEY (cod) REFERENCES Inventario(cod)
     );
     
+REATE TABLE Produccion(
+	n_produccion int AUTO_INCREMENT PRIMARY KEY,
+    ced VARCHAR(30),
+    cod int,
+    saldo int,
+    
+    FOREIGN KEY (ced) REFERENCES Personas(ced)
+    );
+    
+ALTER TABLE Avance ADD COLUMN (ced VARCHAR(30)), ADD CONSTRAINT FOREIGN KEY (ced) REFERENCES Personas(ced);
+ALTER TABLE Avance ADD COLUMN (cod int), ADD CONSTRAINT FOREIGN KEY (cod) REFERENCES Inventario(cod);
 
+CREATE TABLE Log_inventario(
+	n_log int AUTO_INCREMENT PRIMARY KEY,
+    cod int,
+    saldo int,
+    ced VARCHAR(30),
+    
+    FOREIGN KEY (cod) REFERENCES Inventario(cod)
+	);
+    
+CREATE TABLE Ventas (
+	n_factura_compra int AUTO_INCREMENT PRIMARY KEY,
+    cod int,
+    ced VARCHAR(30),
+    fecha date,
+    sub_total DECIMAL(10,2),
+    IVA  DECIMAL(10,2),
+    total DECIMAL(10,2),
+    
+    
+    
+    FOREIGN KEY (cod) REFERENCES Inventario(cod),
+    FOREIGN KEY (ced) REFERENCES Personas(ced)
+		);
+        
+        
+ALTER TABLE detalle_compras CHANGE COLUMN linea linea int UNIQUE;
+       
+CREATE TABLE Detalle_ventas(
+	consecutivo int AUTO_INCREMENT PRIMARY KEY,
+    n_factura_compra int,
+    linea int,
+    cod int,
+    cantidad int,
+    
+    FOREIGN KEY (n_factura_compra) REFERENCES Ventas(n_factura_compra),
+    FOREIGN KEY (linea) REFERENCES detalle_compras(linea)
+	
+	);
+    
+CREATE TABLE Log_ventas_comisiones(
+		n_comisiones int PRIMARY KEY,
+		cod int,
+		cantidad int,
+        
+		FOREIGN KEY (cod) REFERENCES Inventario(cod),
+		FOREIGN KEY (saldo) REFERENCES Inventario(saldo)
+        
+		
+        );
     
