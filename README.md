@@ -28,6 +28,6 @@ motor MySQL.
 
 ## Estado del proyecto
 
-El proyecto tiene datos de prueba, triggers y su schema, el proyecto
+El proyecto tiene datos de prueba, events, stored procedures, triggers y su schema, el proyecto
 proyecto esta pensado para crecer según vaya aplicando nuevos conocimientos.
 
