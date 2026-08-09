@@ -94,6 +94,9 @@ CREATE TABLE Produccion(
     );
 
 
+
+
+
 #Se agregan otras columnas a la tabla Avance que funcionaran como fk a Personas e Inventario   
 ALTER TABLE Avance ADD COLUMN (ced VARCHAR(30)), ADD CONSTRAINT FOREIGN KEY (ced) REFERENCES Personas(ced);
 ALTER TABLE Avance ADD COLUMN (cod int), ADD CONSTRAINT FOREIGN KEY (cod) REFERENCES Inventario(cod);
@@ -121,6 +124,8 @@ CREATE TABLE Ventas (
     FOREIGN KEY (cod) REFERENCES Inventario(cod),
     FOREIGN KEY (ced) REFERENCES Personas(ced)
 		);
+
+
         
 #Se define la columna linea como UNIQUE como corrección a un error de tipo de dato.        
 ALTER TABLE detalle_compras CHANGE COLUMN linea linea int UNIQUE;
@@ -169,6 +174,8 @@ CREATE TABLE Entregas (
     FOREIGN KEY (carnet) REFERENCES Rh(carnet)
     );
 
+
+
 # Se modifica la tabla para poder generar comisiones funcionales según la decisión de como pagar las comisiones(para mas información, ir al markdown llamado "decisiones.md" en la parte de docs
 ALTER TABLE Log_ventas_comisiones 
 	ADD COLUMN carnet INT NOT NULL AFTER n_comisiones,
@@ -179,3 +186,10 @@ ALTER TABLE Log_ventas_comisiones
     ADD COLUMN total DECIMAL(10,2) NOT NULL,
     ADD COLUMN fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ADD CONSTRAINT fk_carnet_lvc FOREIGN KEY (carnet) REFERENCES Rh(carnet);
+
+#Se agrega la columna específica para saber el monto de la comision
+ALTER TABLE Log_ventas_comisiones ADD COLUMN monto_comision DECIMAL(10,2) NOT NULL;
+
+ALTER TABLE Log_ventas_comisiones
+	MODIFY COLUMN saldo INT NULL;
+
