@@ -6,7 +6,7 @@ conocimientos vayan permitiendolo.
 
 ## Nacimiento
 
-Su nombre(PromesasIT) nace de una serie de proyectos desarrollados por un grupo de jovenes estudiantes de redes, programación
+El nombre que aparece en el logo(PromesasIT) nace de una serie de proyectos desarrollados por un grupo de jovenes estudiantes de redes, programación
 y ciberseguridad los que cuales se dedican a desarrollar proyectos en nombre del grupo para poder usarse para aprender o 
 desarrollar a partir de estos. Estos estudiantes son un grupo de amigos que comparten afición por aplicar conocimientos técnicos
 en distintas técnologías y stacks de habilidades.
