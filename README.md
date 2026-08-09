@@ -12,8 +12,9 @@ otro objetivo que es el de practicar bases de datos y demostrar conocimientos.
 ## Origen
 
 Este proyecto nace de la curiosidad de aprender más sobre bases de datos. La
-base del proyecto está tomada del último proyecto de bases de datos de mi
-especialidad técnica.
+base del proyecto está tomada del último proyecto de bases de datos de la
+especialidad técnica de Redes y Sistemas Operativos.
+La cual brinda el MEP(Ministerio de Educación Pública).
 
 ## Libertad de uso
 
