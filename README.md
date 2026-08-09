@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/DataForgeLogo.png" width="500">
+</p>
+
 # Proyecto de Base de Datos
 
 Proyecto pensado para ser un diseño completo de base de datos.
@@ -30,4 +34,6 @@ motor MySQL.
 
 El proyecto tiene datos de prueba, events, stored procedures, triggers y su schema, el proyecto
 proyecto esta pensado para crecer según vaya aplicando nuevos conocimientos.
+
+
 
