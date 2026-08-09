@@ -21,3 +21,9 @@ Link del artículo: https://delfino.cr/2024/03/proyecto-de-ley-obligaria-a-salon
 
 Nota: Para este proyecto, se trabajará con una comisión del 3% sobre el valor de la venta para los vendedores y un 5% del
 salario base extra de comisión para los cocineros.
+
+Se utilizó un procedimiento almacenado para calcular de manera manual la comisión del 3% para los cocineros, solo habría que llamar al procedimiento.
+En este caso se tomó como desición que las comisiones se pagarán a fin de mes, así que se creó un EVENT para activar este procedimiento cada fin de mes.
+
+En el caso de los vendedores, estos obtienen su comisión a partir de sus ventas llevandose un porcentaje, entonces con cada venta se dispara el trigger
+haciendo que se vayan registrando las comisiones correspondientes.
