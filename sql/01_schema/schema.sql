@@ -84,7 +84,7 @@ CREATE TABLE Oferta(
     FOREIGN KEY (cod) REFERENCES Inventario(cod)
     );
     
-REATE TABLE Produccion(
+CREATE TABLE Produccion(
 	n_produccion int AUTO_INCREMENT PRIMARY KEY,
     ced VARCHAR(30),
     cod int,
@@ -92,7 +92,9 @@ REATE TABLE Produccion(
     
     FOREIGN KEY (ced) REFERENCES Personas(ced)
     );
-    
+
+
+#Se agregan otras columnas a la tabla Avance que funcionaran como fk a Personas e Inventario   
 ALTER TABLE Avance ADD COLUMN (ced VARCHAR(30)), ADD CONSTRAINT FOREIGN KEY (ced) REFERENCES Personas(ced);
 ALTER TABLE Avance ADD COLUMN (cod int), ADD CONSTRAINT FOREIGN KEY (cod) REFERENCES Inventario(cod);
 
@@ -120,7 +122,7 @@ CREATE TABLE Ventas (
     FOREIGN KEY (ced) REFERENCES Personas(ced)
 		);
         
-        
+#Se define la columna linea como UNIQUE como corrección a un error de tipo de dato.        
 ALTER TABLE detalle_compras CHANGE COLUMN linea linea int UNIQUE;
        
 CREATE TABLE Detalle_ventas(
@@ -144,3 +146,36 @@ CREATE TABLE Log_ventas_comisiones(
 		FOREIGN KEY (saldo) REFERENCES Inventario(saldo)
         
     );
+
+
+
+#Se hace una corrección ya que compras.proveedor tenía que ser una Foreign Key y estaba definida solo como VARCHAR(30)
+
+ALTER TABLE Compras CHANGE COLUMN proveedor proveedor VARCHAR(30), ADD CONSTRAINT fk_proveedor FOREIGN KEY (proveedor) REFERENCES Personas(ced);
+
+
+#Se agrega Carnet a Ventas como una decision de diseño, esto funcionara pasa saber el tipo de puesto de quien hizo la venta y sus datos
+ALTER TABLE Ventas ADD COLUMN carnet INT NOT NULL, ADD CONSTRAINT FOREIGN KEY (carnet) REFERENCES Rh(carnet);
+
+#Vamos a Insertar una nueva tabla, la cual va a funcionar para calcular los tiempos de entrega de los cocineros, esto será así para calcular sus comisiones
+CREATE TABLE Entregas (
+	n_entrega INT AUTO_INCREMENT PRIMARY KEY,
+    n_factura_compra INT NOT NULL,
+    carnet INT NOT NULL,
+    tiempo_entrega_min DECIMAL(10,2) NOT NULL,
+    fecha_entrega DATE NOT NULL,
+    
+    FOREIGN KEY (n_factura_compra) REFERENCES Ventas(n_factura_compra),
+    FOREIGN KEY (carnet) REFERENCES Rh(carnet)
+    );
+
+# Se modifica la tabla para poder generar comisiones funcionales según la decisión de como pagar las comisiones(para mas información, ir al markdown llamado "decisiones.md" en la parte de docs
+ALTER TABLE Log_ventas_comisiones 
+	ADD COLUMN carnet INT NOT NULL AFTER n_comisiones,
+    ADD COLUMN tipo_comision ENUM('Venta', 'Entrega') NOT NULL AFTER carnet,
+    MODIFY COLUMN cod INT NULL,
+    ADD COLUMN sub_total DECIMAL(10,2) NOT NULL,
+    ADD COLUMN IVA DECIMAL(10,2) NOT NULL,
+    ADD COLUMN total DECIMAL(10,2) NOT NULL,
+    ADD COLUMN fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ADD CONSTRAINT fk_carnet_lvc FOREIGN KEY (carnet) REFERENCES Rh(carnet);
