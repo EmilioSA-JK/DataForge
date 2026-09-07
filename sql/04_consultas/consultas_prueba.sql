@@ -45,3 +45,56 @@ SELECT tabla_afectada, tipo_operacion, COUNT(*) AS total
 FROM Registro
 GROUP BY tabla_afectada, tipo_operacion
 ORDER BY tabla_afectada;
+
+-- 9. Nombres y primer apellido junto a su salario y puesto de todos los empleados.
+
+SELECT p.nombre, p.ape01, r.salario, r.puesto
+FROM Rh r
+INNER JOIN Personas p
+ON r.ced = p.ced;
+
+-- 10. Trae todos los distintos montos de salarios
+
+SELECT COUNT(DISTINCT salario) as salarios FROM Rh;
+
+-- 11. Trae cuantos salarios se pagan por cada puesto
+
+SELECT puesto, COUNT(DISTINCT salario) as salarios FROM Rh GROUP by puesto;
+
+-- 12. Da el total de dinero pagado a todos los empleados
+
+SELECT SUM(salario) as empleados_pago
+FROM Rh;
+
+-- 13. Promedio de salarios
+
+SELECT ROUND(AVG(salario), 2) as avg_salario
+FROM Rh;
+
+-- 14. Salario mas alto y mas bajo
+
+SELECT
+    MIN(salario) as salario_bajo
+    MAX(salario) as salario_alto
+FROM Rh;
+
+-- 15. Salarios mayores a 400,000 colones, segun el puesto
+
+SELECT salario 
+FROM Rh 
+GROUP BY puesto
+HAVING salario > 400000.00;
+
+-- 16. Muestra cuantos salarios mayores a 400,000 mil colones existen y los agrupa por puesto
+
+SELECT 
+	COUNT(*) as s_mayor_400,
+	r.salario,
+    r.puesto
+FROM Rh r
+INNER JOIN Personas p
+ON r.ced = p.ced
+WHERE salario > 400000.00
+GROUP BY r.puesto
+HAVING s_mayor_400 > 2;
+
